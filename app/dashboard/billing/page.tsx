@@ -1,5 +1,5 @@
 "use client"
-import { Check, Loader2Icon } from "lucide-react"
+import { ArrowLeft, Check, Loader2Icon } from "lucide-react"
 import axio from 'axios'
 import { useContext, useState } from "react"
 import { error } from "console";
@@ -8,6 +8,8 @@ import { UserSubscription } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 export default function BillingPage() {
 
   const [loading,setLoading] = useState(false);
@@ -58,6 +60,9 @@ export default function BillingPage() {
 
   return (
     <div className="w-full min-h-screen bg-gray-50 py-12 px-4">
+      <Link  href={"/dashboard"}>
+        <Button className='cursor-pointer'> <ArrowLeft /> Back</Button>
+      </Link>
      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-12">Upgrade With Monthly Plan</h1>
