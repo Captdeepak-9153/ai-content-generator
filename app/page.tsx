@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -46,13 +45,13 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050A1C]">
-      {/* Animated background elements */}
+      Animated background elements
       <div className="absolute left-0 top-1/4 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] opacity-20 blur-3xl"></div>
       <div className="absolute right-0 top-1/2 h-[500px] w-[800px] translate-x-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] opacity-20 blur-3xl"></div>
 
       {/* Star particles container */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div ref={particlesRef} className="absolute inset-0 transition-transform duration-300 ease-out">
+         <div ref={particlesRef} className="absolute inset-0 transition-transform duration-300 ease-out">
           <StarParticle color="#0EA5E9" size={2} top="10%" left="20%" duration={15} delay={0} />
           <StarParticle color="#6366F1" size={3} top="15%" left="70%" duration={20} delay={2} />
           <StarParticle color="#8B5CF6" size={2.5} top="5%" left="40%" duration={18} delay={5} />
@@ -63,7 +62,7 @@ export default function LandingPage() {
           <StarParticle color="#EC4899" size={2.2} top="2%" left="50%" duration={21} delay={12} />
           <StarParticle color="#0EA5E9" size={1.8} top="9%" left="75%" duration={16} delay={6} />
           <StarParticle color="#6366F1" size={3.2} top="4%" left="90%" duration={23} delay={9} />
-        </div>
+        </div> 
       </div>
 
       {/* Animated flowing element */}
@@ -107,14 +106,14 @@ export default function LandingPage() {
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <Image src="/logo-light.svg" alt="Logo" width={150} height={40} className="h-10 w-auto" />
+           <Image src={'/logo.svg'} alt="logo" width={120} height={100} />
         </motion.div>
 
         <div className="hidden items-center rounded-full bg-[#0A1232]/50 px-2 py-1 backdrop-blur-md md:flex">
           {["Channels", "Pricing", "Solutions", "Resources"].map((item, index) => (
             <motion.div key={item} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href={`/${item.toLowerCase()}`}
+                href={'/dashboard'}
                 className="px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:text-white"
               >
                 {item}
@@ -129,7 +128,7 @@ export default function LandingPage() {
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <Link
-            href="/get-started"
+            href="/dashboard"
             className="rounded-full bg-[#0EA5E9] px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-[#0EA5E9]/20 transition-all hover:bg-[#0EA5E9]/90 hover:shadow-xl hover:shadow-[#0EA5E9]/30"
           >
             Start Free Trial
@@ -282,7 +281,7 @@ export default function LandingPage() {
               <h3 className="mb-2 text-xl font-bold text-white">{feature.title}</h3>
               <p className="mb-4 text-white/70">{feature.description}</p>
               <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Link href={feature.link} className={`flex items-center ${feature.textColor} ${feature.hoverColor}`}>
+                <Link href={'/dashboard'} className={`flex items-center ${feature.textColor} ${feature.hoverColor}`}>
                   Learn more <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </motion.div>
@@ -308,9 +307,9 @@ export default function LandingPage() {
             whileHover={{ scale: 1.1, color: "#8B5CF6" }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            Hire a chatbot as your WhatsApp
+            Start Your Content Generation Journey 
             <br />
-            AI sales manager
+            With Us🆓
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.1, color: "#EC4899" }}
