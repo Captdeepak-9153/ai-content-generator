@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
-  import fs from "node:fs";
-  import mime from "node:mime";
+ 
   
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY;
   if (!apiKey) throw new Error("NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY is not defined");
