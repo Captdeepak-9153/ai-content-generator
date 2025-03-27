@@ -1,18 +1,20 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { createRouteMatcher } from "@clerk/nextjs/server";
 
-
 const isPublicRoute = createRouteMatcher([
-    '/sign-in(.*)',
-    '/sign-up(.*)'
-  ])
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/$'  // Allow public access to landing page
+]);
 
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
-    if (isProtectedRoute(req)) await auth.protect()
-  });
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)','/'])
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params

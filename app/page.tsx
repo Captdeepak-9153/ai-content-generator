@@ -6,9 +6,14 @@ import Link from "next/link"
 import { ArrowRight, BookOpen, Clock, FileText, Settings } from "lucide-react"
 import { motion } from "framer-motion"
 import { StarParticle } from "./star-particle"
+import { useAuth, useUser } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 
 export default function LandingPage() {
   const particlesRef = useRef<HTMLDivElement>(null)
+  const { isLoaded, isSignedIn } = useAuth()
+  const { user } = useUser()
+  const router = useRouter()
 
   useEffect(() => {
     // This will run only on the client side
@@ -30,6 +35,14 @@ export default function LandingPage() {
       }
     }
   }, [])
+
+  const handleGetStarted = () => {
+    if (isSignedIn) {
+      router.push('/dashboard')
+    } else {
+      router.push('/sign-in')
+    }
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050A1C]">
@@ -137,7 +150,9 @@ export default function LandingPage() {
             boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
           }}
         >
-          <span className="text-sm font-medium text-white">AI ContentGenerator Membership - Join Now</span>
+            <Link href="/dashboard/billing" className="text-sm font-medium text-white">
+            AI ContentGenerator Membership - Join Now
+            </Link>
           <motion.div
             animate={{ x: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -184,8 +199,8 @@ export default function LandingPage() {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link
-              href="/dashboard"
+            <button
+              onClick={handleGetStarted}
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] px-8 py-3.5 text-base font-medium text-white transition-all"
             >
               Get started
@@ -195,7 +210,7 @@ export default function LandingPage() {
               >
                 <ArrowRight className="ml-2 h-5 w-5" />
               </motion.div>
-            </Link>
+            </button>
           </motion.div>
         </div>
 
