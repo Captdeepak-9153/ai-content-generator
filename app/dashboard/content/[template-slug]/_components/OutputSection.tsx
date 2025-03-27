@@ -4,6 +4,7 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Button } from '@/components/ui/button'
 import { Copy } from 'lucide-react'
 import { fromString } from '@iarna/rtf-to-html'
+import type { Editor as EditorType } from '@toast-ui/react-editor'
 
 // Dynamically import the Editor component
 const Editor = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Editor), { ssr: false })
@@ -13,7 +14,7 @@ interface props {
 } 
 
 function OutputSection({ aiOutput }: props) {
-  const editorRef:any = useRef();
+  const editorRef = useRef<EditorType>(null);
 
   useEffect(() => {
     if (editorRef.current) {
