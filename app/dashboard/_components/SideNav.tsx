@@ -3,6 +3,7 @@ import React, { use, useEffect } from 'react'
 import Image from 'next/image'
 import { FileClock, Home, Settings, Wallet, WalletCards } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 // import UsageTrack from './UsageTrack'
 
 function SideNav() {
@@ -29,7 +30,7 @@ function SideNav() {
     },
   ]
 
-  const path =usePathname();
+  const path = usePathname();
   useEffect(() => {
     console.log(path)
   }, []);
@@ -45,12 +46,14 @@ function SideNav() {
       <hr className='my-6 border' />
       <div className='mt-3'>
         {MenuList.map((menu, index) => (
-          <div key={index} className={`flex gap-2 mb-2 p-3 hover:bg-cyan-500 hover:text-black rounded-lg cursor-pointer items-center
-            ${path === menu.path && 'bg-primary text-white'}`
-          }>
-            <menu.icon className='h-6 w-6'/>
-            <h2 className='text-lg'>{menu.name}</h2>
-          </div>
+          <Link href={menu.path} key={index}>
+            <div className={`flex gap-2 mb-2 p-3 hover:bg-cyan-500 hover:text-black rounded-lg cursor-pointer items-center
+              ${path === menu.path && 'bg-primary text-white'}`}
+            >
+              <menu.icon className='h-6 w-6'/>
+              <h2 className='text-lg'>{menu.name}</h2>
+            </div>
+          </Link>
         ))}
       </div>
       <div className='absolute bottom-15 left-0 w-full'>
