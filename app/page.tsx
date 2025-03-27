@@ -186,7 +186,7 @@ export default function LandingPage() {
           >
             <Link
               href="/dashboard"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] px-8 py-3.5 text-base font-medium text-white shadow-lg shadow-[#8B5CF6]/20 transition-all hover:shadow-xl hover:shadow-[#8B5CF6]/30"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] px-8 py-3.5 text-base font-medium text-white transition-all"
             >
               Get started
               <motion.div
