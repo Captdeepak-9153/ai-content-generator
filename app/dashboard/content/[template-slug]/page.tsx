@@ -9,6 +9,10 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { chatSession } from '@/utils/AiModel'
 import { use } from 'react'
+import { db } from '@/utils/db'
+import { AIOutput } from '@/utils/schema'
+import { useUser } from '@clerk/nextjs'
+import moment from 'moment'
 
 interface PROPS {
   params: Promise<{
@@ -24,6 +28,23 @@ function CreateNewContent(props: PROPS) {
   const [aiOutput, setAiOutput] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
+  const {user}=useUser();
+
+
+  const SaveInDb = async (formData: any, slug: string, aiOutput: string) => {
+    if (!user?.primaryEmailAddress?.emailAddress) {
+      throw new Error('User email is required');
+    }
+    const result = await db.insert(AIOutput).values({
+      formData: JSON.stringify(formData),
+      templateSlug: slug,
+      aiResponse: aiOutput,
+      createdBy: user.primaryEmailAddress.emailAddress,
+      createdAt: moment().format('DD/MM/yyyy')
+    });
+    console.log(result);
+  }
+
   const GenerateAIContent = async (formData: any) => {
     setLoading(true);
     setError(null); // Reset error state
@@ -35,7 +56,8 @@ function CreateNewContent(props: PROPS) {
       }
       const result = await chatSession.sendMessage(FinalAIPrompt);
       console.log(result.response.text());
-      setAiOutput(result.response.text());
+      setAiOutput(result?.response.text());
+      await SaveInDb(formData, selectedTemplate?.slug, aiOutput)
     } catch (err: any) {
       console.error('Error generating AI content:', err);
       if (err.message.includes('503')) {
@@ -50,8 +72,8 @@ function CreateNewContent(props: PROPS) {
 
   return (
     <div className='p-5'>
-      <Link href={"/dashboard"}>
-        <Button> <ArrowLeft /> Back</Button>
+      <Link  href={"/dashboard"}>
+        <Button className='cursor-pointer'> <ArrowLeft /> Back</Button>
       </Link>
       {error && <div className='error-message'>{error}</div>}
       <div className='grid grid-cols-1 md:grid-cols-3 gap-5 p-5'>

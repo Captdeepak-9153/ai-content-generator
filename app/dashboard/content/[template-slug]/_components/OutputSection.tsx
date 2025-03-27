@@ -19,13 +19,14 @@ function OutputSection({ aiOutput }: props) {
     if (editorRef.current) {
       const editorInstance = editorRef.current.getInstance();
       
-      // Convert RTF to HTML
-      fromString(aiOutput, (err, html) => {
+      
+      fromString(aiOutput, (err, aiOutput1) => {
         if (err) {
           console.error('Failed to parse RTF:', err);
           return;
         }
-        editorInstance.setHTML(html);
+         editorInstance.setMarkdown(aiOutput);
+        //editorInstance.setHTML(aiOutput1);
       });
     }
   }, [aiOutput]);
@@ -34,7 +35,13 @@ function OutputSection({ aiOutput }: props) {
     <div className='bg-white shadow-lg border rounded-lg'>
       <div className='flex justify-between items-center p-3'>
         <h2 className='font-medium text-lg'>Your Result</h2>
-        <Button className='flex gap-2 '><Copy className='w-4 h-4' />Copy</Button>
+        <Button 
+          className='flex gap-2 cursor-pointer' 
+          onClick={() => navigator.clipboard.writeText(aiOutput)}
+        >
+          <Copy className='w-4 h-4' />
+          Copy
+        </Button>
       </div>
       <Editor
         ref={editorRef}

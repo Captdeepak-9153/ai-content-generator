@@ -46,7 +46,7 @@ function   FormSection({selectedTemplate,UserFormInput,loading}:PROPS) {
                       
                 </div>
             ))}
-            <button type="submit" className='bg-blue-500 text-white  py-6 rounded-md w-full '
+            <button type="submit" className='bg-blue-500 text-white  py-6 rounded-md w-full cursor-pointer '
             disabled={loading}
             >
                 {loading&&<Loader2Icon className='animate-spin  '/>}
