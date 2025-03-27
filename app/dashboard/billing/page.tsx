@@ -67,13 +67,7 @@ export default function BillingPage() {
       <div className="absolute right-0 top-1/2 h-[500px] w-[800px] translate-x-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] opacity-20 blur-3xl"></div>
 
       <div className="relative z-10 w-full min-h-screen py-12 px-4">
-        <Link href={"/dashboard"}>
-          <Button variant="outline" className='mb-8 flex items-center gap-2'>
-            <ArrowLeft className="h-4 w-4" />
-            Back to Dashboard
-          </Button>
-        </Link>
-
+       
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <div className="max-w-6xl mx-auto">
           <motion.h1 
