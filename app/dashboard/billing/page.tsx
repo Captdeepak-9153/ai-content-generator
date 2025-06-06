@@ -1,7 +1,7 @@
 "use client"
 import { ArrowLeft, Check, Loader2Icon } from "lucide-react"
 import axio from 'axios'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { error } from "console";
 import { db } from "@/utils/db";
 import { UserSubscription } from "@/utils/schema";
@@ -11,6 +11,28 @@ import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+
+// Add Razorpay to the Window interface
+declare global {
+  interface Window {
+    Razorpay?: any;
+  }
+}
+
+function loadRazorpayScript() {
+  return new Promise((resolve) => {
+    if (document.getElementById('razorpay-script')) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'razorpay-script';
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
 
 export default function BillingPage() {
   const [loading, setLoading] = useState(false);
@@ -27,7 +49,16 @@ export default function BillingPage() {
     })
   }
 
-  const OnPayment = (subId: string) => {
+  const OnPayment = async (subId: string) => {
+    const scriptLoaded = await loadRazorpayScript();
+    if (!scriptLoaded) {
+      alert('Razorpay SDK failed to load.');
+      return;
+    }
+    if (typeof window === 'undefined' || !window.Razorpay) {
+      alert('Razorpay not available');
+      return;
+    }
     const options = {
       "key": process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       "subscription_id": subId,
@@ -60,15 +91,18 @@ export default function BillingPage() {
     }
   }
 
+  useEffect(() => {
+    loadRazorpayScript();
+  }, []);
+
   return (
-    <div className="relative min-h-screen bg-[#050A1C] overflow-hidden">
+    <div className="relative h-full bg-[#050A1C] overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute left-0 top-1/4 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] opacity-20 blur-3xl"></div>
       <div className="absolute right-0 top-1/2 h-[500px] w-[800px] translate-x-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] opacity-20 blur-3xl"></div>
 
-      <div className="relative z-10 w-full min-h-screen py-12 px-4">
+      <div className="relative z-10 w-full h-full py-12 px-4">
        
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <div className="max-w-6xl mx-auto">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}

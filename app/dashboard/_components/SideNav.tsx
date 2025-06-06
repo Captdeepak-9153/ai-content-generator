@@ -36,7 +36,7 @@ function SideNav() {
   }, []);
 
   return (
-    <div className='h-screen relative p-5 shadow-lg border-r border-gray-400 bg-white'>
+    <div className='h-screen w-64 fixed left-0 top-0 z-20 p-5 shadow-lg border-r border-gray-400 bg-white flex flex-col'>
       <div 
         className='flex justify-center items-center mb-5 cursor-pointer' 
         onClick={() => window.location.href = '/'}
@@ -44,7 +44,7 @@ function SideNav() {
         <Image src={'/logo.svg'} alt="logo" width={120} height={100} />
       </div>
       <hr className='my-6 border' />
-      <div className='mt-3'>
+      <div className='flex-1 mt-3'>
         {MenuList.map((menu, index) => (
           <Link href={menu.path} key={index}>
             <div className={`flex gap-2 mb-2 p-3 hover:bg-cyan-500 hover:text-black rounded-lg cursor-pointer items-center
@@ -56,7 +56,7 @@ function SideNav() {
           </Link>
         ))}
       </div>
-      <div className='absolute bottom-15 left-0 w-full'>
+      <div className='mb-4'>
         {/* <UsageTrack/> */}
       </div>
     </div>

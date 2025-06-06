@@ -14,16 +14,18 @@ function layout({
     const [UserSubscription,setUserSubscription]=useState<boolean>(false);
   return (
     <UserSubscriptionContext.Provider value={{UserSubscription,setUserSubscription}}>
-    <div className='bg-slate-100 h-screen'>
-        <div className='md:w-64 hidden md:block fixed'>
-            <SideNav/>
+      <div className='flex h-screen bg-slate-100'>
+        {/* Sidebar */}
+        <div className='hidden md:block fixed left-0 top-0 h-screen w-64 z-20'>
+          <SideNav/>
         </div>
-        <div className='md:ml-64'>
+        {/* Main content */}
+        <div className='flex-1 md:ml-64 h-screen overflow-auto'>
           <Header/>
           {/* Render child routes here */}
           {children}
         </div>
-    </div>
+      </div>
     </UserSubscriptionContext.Provider>
   )
 }

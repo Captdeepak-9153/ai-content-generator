@@ -58,34 +58,32 @@ function HistoryPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#050A1C] overflow-hidden">
+    <div className="relative min-h-screen bg-[#050A1C] overflow-x-hidden">
       {/* Animated background elements */}
-      <div className="absolute left-0 top-1/4 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] opacity-20 blur-3xl"></div>
-      <div className="absolute right-0 top-1/2 h-[500px] w-[800px] translate-x-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] opacity-20 blur-3xl"></div>
+      <div className="absolute left-0 top-1/4 h-[400px] w-[600px] sm:h-[600px] sm:w-[1000px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] opacity-20 blur-3xl"></div>
+      <div className="absolute right-0 top-1/2 h-[300px] w-[400px] sm:h-[500px] sm:w-[800px] translate-x-1/3 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] opacity-20 blur-3xl"></div>
 
-      <div className="relative z-10 w-full min-h-screen py-12 px-4">
-       
-
+      <div className="relative z-10 w-full h-full py-8 px-2 sm:py-12 sm:px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-4 mb-8"
+            className="space-y-2 sm:space-y-4 mb-4 sm:mb-8"
           >
-            <h1 className="text-4xl font-bold text-white">History</h1>
-            <p className="text-gray-400">Search your previously generated AI content</p>
+            <h1 className="text-2xl sm:text-4xl font-bold text-white">History</h1>
+            <p className="text-gray-400 text-sm sm:text-base">Search your previously generated AI content</p>
           </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white/10 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden border border-white/20"
+            className="bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden border border-white/20"
           >
-            <div className="grid grid-cols-5 gap-4 p-6 text-sm font-medium text-white/70 border-b border-white/10">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4 p-3 sm:p-6 text-xs sm:text-sm font-medium text-white/70 border-b border-white/10">
               <div>TEMPLATE</div>
-              <div className="col-span-2">AI RESPONSE</div>
-              <div>DATE</div>
+              <div className="col-span-1 sm:col-span-2">AI RESPONSE</div>
+              <div className="hidden sm:block">DATE</div>
               <div className="flex justify-between">
                 <span>WORDS</span>
                 <span>COPY</span>
@@ -99,17 +97,17 @@ function HistoryPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="grid grid-cols-5 gap-4 p-6 items-center hover:bg-white/5 transition-colors"
+                  className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4 p-3 sm:p-6 items-center hover:bg-white/5 transition-colors"
                 >
-                  <div className="font-medium text-white">{item.templateSlug}</div>
-                  <div className="col-span-2 text-sm text-gray-400 truncate">
+                  <div className="font-medium text-white truncate">{item.templateSlug}</div>
+                  <div className="col-span-1 sm:col-span-2 text-xs sm:text-sm text-gray-400 truncate">
                     {item.aiResponse}
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <div className="hidden sm:block text-sm text-gray-400">
                     {formatDate(item.createdAt)}
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400 bg-white/5 px-2 py-0.5 rounded">
+                    <span className="text-xs sm:text-sm text-gray-400 bg-white/5 px-2 py-0.5 rounded">
                       {getWordCount(item.aiResponse)}
                     </span>
                     <Button
