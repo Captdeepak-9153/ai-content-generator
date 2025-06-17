@@ -1,5 +1,4 @@
 # AI Content Generator
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Captdeepak-9153/ai-content-generator)
 
 AI Content Generator is a full-stack application built with Next.js that leverages Google's Generative AI (Gemini) to create diverse content based on various templates. It features user authentication, a subscription model, content history, and a rich text editor for a seamless content creation experience.
 
